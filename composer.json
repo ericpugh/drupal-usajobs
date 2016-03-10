@@ -1,0 +1,6 @@
+{
+    "name": "drupal/usajobs",
+    "description": "USAjobs module",
+    "type": "drupal-module",
+    "license": "GPL-2.0+"
+}

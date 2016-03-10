@@ -1,0 +1,6 @@
+name: USAjobs
+description: 'Provides a block to display USAjobs.gov job listings for a state or federal agencies.'
+core: 8.x
+type: module
+dependencies:
+  - block

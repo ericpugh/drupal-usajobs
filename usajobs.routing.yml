@@ -1,0 +1,11 @@
+usajobs.settings:
+  path: /admin/config/usajobs
+  defaults:
+    _form: '\Drupal\usajobs\Form\ConfigForm'
+    _title: 'USAjobs Settings'
+  requirements:
+    _permission: 'administer_usajobs'
+usajobs.help:
+  path: 'admin/help/usajobs'
+  requirements:
+    _permission: 'administer_usajobs'

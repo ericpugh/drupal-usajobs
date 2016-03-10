@@ -1,0 +1,5 @@
+usajobs.settings:
+  title: 'USAjobs Settings'
+  description: 'Configure and customize the USAjobs Block.'
+  route_name: usajobs.settings
+  parent: system.admin_config_system
