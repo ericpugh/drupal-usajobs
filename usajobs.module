@@ -1,10 +1,6 @@
 <?php
 
-use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Component\Utility\Html;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Form\FormBase;
-use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_help().
@@ -21,30 +17,16 @@ function usajobs_help($route_name, RouteMatchInterface $route_match) {
 }
 
 /**
- * Implements hook_form_FORM_ID_alter().
- *
- * alter the block search form so that drupal's token attributes are not passed
- * to the action as querystring params
- *
- * @see \Drupal\usajobs\Form\SearchBlockForm::buildForm()
+ * Implements hook_theme().
  */
-function usajobs_form_usajobs_search_block_form_alter(&$form, FormStateInterface $form_state) {
-    $form['#token'] = FALSE;
-    $form['form_id']['#access'] = FALSE;
-    $form['form_build_id']['#access'] = FALSE;
-    $form['form_token']['#access'] = FALSE;
+function usajobs_theme($existing, $type, $theme, $path) {
+  return array(
+    'usajobs_block' =>
+      array(
+        'variables' => array(
+          'jobs' => NULL
+        ),
+        'template' => 'block--usajobs-block',
+      )
+  );
 }
-
-
-//TODO: look into the hook_theme_suggestions_alter() in D8 to set the block template
-//block_usajobs_search_block
-/**
- * Implements hook_theme_suggestions_HOOK().
- */
-// function usajobs_theme_suggestions_search_block(array $variables) {
-//   $suggestions = array();
-//   $suggestions[] = 'block--usajobs--search-block';
-//   return $suggestions;
-// }
-
-

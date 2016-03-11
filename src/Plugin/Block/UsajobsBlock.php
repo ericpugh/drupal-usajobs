@@ -33,22 +33,13 @@ class UsajobsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    //TODO: look at the Cache API to see if I can get/set the block from cache
 
-    //get the block form
-    //$block = \Drupal::formBuilder()->getForm('Drupal\usajobs\Form\UsajobsBlockForm');
-    //add the block's config to drupalSettings
-    $config = \Drupal::config('usajobs.settings');
-//    $affiliate_name = $config->get('affiliate_name');
-//    $use_type_ahead = $config->get('autocomplete');
-//    $block['#attached']['drupalSettings']['usajobs']['type_ahead'] = $use_type_ahead ? TRUE : FALSE;
-//    $block['#attached']['drupalSettings']['usajobs']['affiliate_name'] = $affiliate_name ? $affiliate_name : '';
-//    if ($use_type_ahead) {
-//      //add the type_ahead js library
-//      $block['#attached']['library'][] = 'usajobs/type_ahead';
-//    }
+    return array(
+      '#theme' => 'usajobs_block',
+//      '#jobs' => array('title' => 'the job title'),
+      '#jobs' => 'the jobs element in build method',
+    );
 
-    return $block;
   }
 
 }

@@ -5,7 +5,7 @@ namespace Drupal\usajobs\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-classUsajobsController extends ControllerBase {
+class UsajobsController extends ControllerBase {
 
 
   public function __construct() {
