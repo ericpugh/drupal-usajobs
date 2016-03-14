@@ -29,6 +29,10 @@
 #}
 <div{{ attributes }}>
     <pre>{{ dump(jobs) }}</pre>
+    {% for job in jobs %}
+        {{ job.positionTitle }}
+    {% endfor %}
+
     {{ jobs }}
     {{ title_prefix }}
     {% if label %}

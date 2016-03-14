@@ -20,6 +20,7 @@ function usajobs_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_theme().
  */
 function usajobs_theme($existing, $type, $theme, $path) {
+  //add jobs variable and assign twig template for the block template
   return array(
     'usajobs_block' =>
       array(
