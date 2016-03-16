@@ -111,6 +111,9 @@ class JobListing {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
   function __toString() {
     return (string) $this->positionTitle;
   }
