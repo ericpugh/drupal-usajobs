@@ -38,21 +38,20 @@ class UsajobsBlock extends BlockBase {
     //get jobs listings
     $jobs = array();
     $url = Url::fromRoute('usajobs.listings', $route_parameters = array(), $options = array('absolute' => true))->toString();
-    dpm($url);
-    $response = \Drupal::httpClient()->get($url)->getBody();
-    dpm($response);
-//    if( $response && isset($response['success']) && $response['success'] == true){
-//      if( isset($response['data']['SearchResult']) && $response['data']['SearchResult']['SearchResultCount'] > 0 ){
-//        $results = $response['data']['SearchResult']['SearchResultItems'];
-//        foreach($results as $result){
-//          array_push($jobs, new JobListing($result));
-//        }
-//      }
-//    }
+    $contents = \Drupal::httpClient()->get($url)->getBody()->getContents();
+    $response = json_decode($contents);
+    if( is_object($response)  && $response->success == true){
+      $data = $response->data;
+      if( $data->SearchResult->SearchResultCount > 0 ){
+        $results = $response->data->SearchResult->SearchResultItems;
+        foreach($results as $result){
+          array_push($jobs, new JobListing($result));
+        }
+      }
+    }
 
     return array(
       '#theme' => 'usajobs_block',
-//      '#jobs' => array('title' => 'the job title'),
       '#jobs' => $jobs,
     );
 

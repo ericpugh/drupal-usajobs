@@ -66,13 +66,12 @@ class UsajobsController extends ControllerBase {
       ]);
 
     } catch (RequestException $exception) {
-      watchdog_exception('usajobs', $exception->getMessage());
+      watchdog_exception('usajobs', $exception);
       return new JsonResponse([
         'success' => false,
         'code'    => $exception->getCode(),
         'message' => $exception->getMessage(),
       ]);
-
     }
 
   }
