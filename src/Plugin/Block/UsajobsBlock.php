@@ -10,9 +10,7 @@ namespace Drupal\usajobs\Plugin\Block;
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\Core\Url;
-use Drupal\usajobs\JobListing;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\usajobs\JobListingCollection;
 
 /**
  * Provides a 'USAjobs' block.
@@ -35,24 +33,10 @@ class UsajobsBlock extends BlockBase {
    * {@inheritdoc}
    */
   public function build() {
-    //get jobs listings
-    $jobs = array();
-    $url = Url::fromRoute('usajobs.listings', $route_parameters = array(), $options = array('absolute' => true))->toString();
-    $contents = \Drupal::httpClient()->get($url)->getBody()->getContents();
-    $response = json_decode($contents);
-    if( is_object($response)  && $response->success == true){
-      $data = $response->data;
-      if( $data->SearchResult->SearchResultCount > 0 ){
-        $results = $response->data->SearchResult->SearchResultItems;
-        foreach($results as $result){
-          array_push($jobs, new JobListing($result));
-        }
-      }
-    }
 
     return array(
       '#theme' => 'usajobs_block',
-      '#jobs' => $jobs,
+      '#jobs' => JobListingCollection::getJobListings(),
     );
 
   }

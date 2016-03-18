@@ -5,6 +5,7 @@ Contents of this file
  * Overview
  * Installation
  * Setup Tips
+ * Overriding the Block Template
 
 
 Overview
@@ -30,3 +31,32 @@ Setup Tips
 
 1. Place the USAjobs in a block region (admin/structure/block) to display on your site.
 2. override template/block--usajobs-block.html.twig in your theme to customize block output
+
+
+Overriding the Block Template
+-----------------------------
+To override the block template you have to create a template in your theme
+and add the job listings object to the $variables
+
+Example template in mytheme/templates/block--usajobs-block.html
+
+{% extends "@usajobs/block--usajobs-block.html.twig" %}
+{% block content %}
+    <ol>
+    {% for job in jobs %}
+        <li>item: {{ loop.index }} {{ job.positionTitle }}</li>
+    {% endfor %}
+    </ol>
+{% endblock %}
+
+
+Example hook_preprocess_block() in mytheme.theme
+
+function mytheme_preprocess_block(&$variables) {
+  if ($variables['plugin_id'] == 'usajobs_block'){
+    if( Drupal::moduleHandler()->moduleExists('usajobs') ){
+      $variables['jobs'] = Drupal\usajobs\JobListingCollection::getJobListings();
+    }
+  }
+}
+

@@ -45,8 +45,9 @@
  * @ingroup themeable
  */
 #}
+    {% set numJobs = jobs|length %}
 
-<div{{ attributes }}>
+    <div{{ attributes }}>
 
     {{ title_prefix }}
     {% if label %}
@@ -62,6 +63,7 @@
             {% for job in jobs %}
                 <li class="list-group-item">
                     <header class="list-group-item-heading">
+
                         <div class="field__item">
                             <div class="field__label">Title</div>
                             <a href="{{ job.positionURI }}" target="_blank">
@@ -155,6 +157,6 @@
             {% endfor %}
             </ul>
         {% endif %}
-    {% endblock %}
+    {% endblock content %}
 
 </div>
