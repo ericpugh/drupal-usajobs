@@ -25,7 +25,7 @@ function usajobs_theme($existing, $type, $theme, $path) {
     'usajobs_block' =>
       array(
         'variables' => array(
-          'jobs' => NULL
+          'jobs' => NULL,
         ),
         'template' => 'block--usajobs-block',
       )
