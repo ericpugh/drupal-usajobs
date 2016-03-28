@@ -7,7 +7,6 @@
 
 namespace Drupal\usajobs;
 
-use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Component\Utility\Unicode;
 
 /**
@@ -37,73 +36,74 @@ class JobListing {
   public $applicationCloseDate;
 
   /**
+   * Constructs a new JobListing.
    *
    * @param object $data
-   *   Search result object returned from the USAjobs Search API
+   *   Search result object returned from the USAjobs Search API.
    */
-  function __construct($data = null) {
+  public function __construct($data = NULL) {
 
-    if($data){
-      if( $data->MatchedObjectDescriptor->PositionID ){
+    if ($data) {
+      if ($data->MatchedObjectDescriptor->PositionID) {
         $this->positionID = $data->MatchedObjectDescriptor->PositionID;
       }
-      if( $data->MatchedObjectDescriptor->PositionTitle ){
+      if ($data->MatchedObjectDescriptor->PositionTitle) {
         $this->positionTitle = $data->MatchedObjectDescriptor->PositionTitle;
       }
-      if( $data->MatchedObjectDescriptor->PositionURI ){
+      if ($data->MatchedObjectDescriptor->PositionURI) {
         $this->positionURI = $data->MatchedObjectDescriptor->PositionURI;
       }
-      if( $data->MatchedObjectDescriptor->PositionLocation ){
+      if ($data->MatchedObjectDescriptor->PositionLocation) {
         $this->positionLocations = $data->MatchedObjectDescriptor->PositionLocation;
       }
-      if( $data->MatchedObjectDescriptor->OrganizationName ){
+      if ($data->MatchedObjectDescriptor->OrganizationName) {
         $this->organizationName = $data->MatchedObjectDescriptor->OrganizationName;
       }
-      if( $data->MatchedObjectDescriptor->DepartmentName ){
+      if ($data->MatchedObjectDescriptor->DepartmentName) {
         $this->departmentName = $data->MatchedObjectDescriptor->DepartmentName;
       }
-      if( $data->MatchedObjectDescriptor->JobCategory ){
+      if ($data->MatchedObjectDescriptor->JobCategory) {
         $this->jobCategories = $data->MatchedObjectDescriptor->JobCategory;
       }
-      if( $data->MatchedObjectDescriptor->JobGrade ){
+      if ($data->MatchedObjectDescriptor->JobGrade) {
         $this->jobGrade = $data->MatchedObjectDescriptor->JobGrade[0]->Code;
       }
-      if( $data->MatchedObjectDescriptor->UserArea->Details->LowGrade ){
+      if ($data->MatchedObjectDescriptor->UserArea->Details->LowGrade) {
         $this->jobLowGrade = $data->MatchedObjectDescriptor->UserArea->Details->LowGrade;
       }
-      if( $data->MatchedObjectDescriptor->UserArea->Details->HighGrade ){
+      if ($data->MatchedObjectDescriptor->UserArea->Details->HighGrade) {
         $this->jobHighGrade = $data->MatchedObjectDescriptor->UserArea->Details->HighGrade;
       }
-      if( $data->MatchedObjectDescriptor->PositionSchedule ){
+      if ($data->MatchedObjectDescriptor->PositionSchedule) {
         $this->positionSchedule = $data->MatchedObjectDescriptor->PositionSchedule[0]->Name;
       }
-      if( $data->MatchedObjectDescriptor->PositionOfferingType ){
+      if ($data->MatchedObjectDescriptor->PositionOfferingType) {
         $this->positionOfferingType = $data->MatchedObjectDescriptor->PositionOfferingType[0]->Name;
       }
-      if( $data->MatchedObjectDescriptor->UserArea->Details->JobSummary ){
+      if ($data->MatchedObjectDescriptor->UserArea->Details->JobSummary) {
         $this->jobSummary = $data->MatchedObjectDescriptor->UserArea->Details->JobSummary;
       }
-      if( $data->MatchedObjectDescriptor->QualificationSummary ){
+      if ($data->MatchedObjectDescriptor->QualificationSummary) {
         $this->qualificationSummary = $data->MatchedObjectDescriptor->QualificationSummary;
       }
-      if( $data->MatchedObjectDescriptor->PositionRemuneration ){
+      if ($data->MatchedObjectDescriptor->PositionRemuneration) {
         $this->positionSalaryRange = $data->MatchedObjectDescriptor->PositionRemuneration[0];
       }
-      if( $data->MatchedObjectDescriptor->UserArea->Details->WhoMayApply ){
+      if ($data->MatchedObjectDescriptor->UserArea->Details->WhoMayApply) {
         $this->whoMayApply = $data->MatchedObjectDescriptor->UserArea->Details->WhoMayApply->Name;
-        if($this->whoMayApply){
-          //truncate the WhoMayApply string as summary
+        if ($this->whoMayApply) {
+          // Truncate the WhoMayApply string as summary.
           $this->whoMayApplySummary = Unicode::truncate($this->whoMayApply, $max_length = 57, TRUE, TRUE);
         }
       }
 
       $date_formatter = \Drupal::service('date.formatter');
 
-      if( $data->MatchedObjectDescriptor->PublicationStartDate ){
+      if ($data->MatchedObjectDescriptor->PublicationStartDate) {
         $timestamp = strtotime($data->MatchedObjectDescriptor->PublicationStartDate);
         $this->publicationStartDate = $date_formatter->format($timestamp);
       }
-      if( $data->MatchedObjectDescriptor->ApplicationCloseDate ){
+      if ($data->MatchedObjectDescriptor->ApplicationCloseDate) {
         $timestamp = strtotime($data->MatchedObjectDescriptor->PublicationStartDate);
         $this->applicationCloseDate = $date_formatter->format($timestamp);
       }
@@ -114,22 +114,22 @@ class JobListing {
   /**
    * {@inheritdoc}
    */
-  function __toString() {
+  public function __toString() {
     return (string) $this->positionTitle;
   }
 
   /**
-   * Check if JobListing properties are set
+   * Check if JobListing properties are set.
    */
-  function hasProperties(){
+  public function hasProperties() {
     return (
-      array_filter( get_object_vars($this),
-        function($val){
-          // not an empty string or null value
-          return ( is_string($val) && strlen($val)) || ($val!==null);
+      array_filter(get_object_vars($this),
+        function($val) {
+          // Check not an empty string or null value.
+          return (is_string($val) && strlen($val)) || ($val !== NULL);
         }
       )
-    ) ? true : false;
+    ) ? TRUE : FALSE;
   }
 
 }

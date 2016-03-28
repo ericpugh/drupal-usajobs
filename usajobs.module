@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Integrates with usajobs.gov search api.
+ */
+
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -7,11 +12,13 @@ use Drupal\Core\Routing\RouteMatchInterface;
  */
 function usajobs_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
+
     case 'usajobs.help':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
       $output .= '<p>' . t('This is the help docs for USAjobs, see <a href="!usajobs-module">the online documentation</a></p>');
       return $output;
+
     break;
   }
 }
@@ -20,7 +27,7 @@ function usajobs_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_theme().
  */
 function usajobs_theme($existing, $type, $theme, $path) {
-  //add jobs variable and assign twig template for the block template
+  // Add jobs variable and assign twig template for the block template.
   return array(
     'usajobs_block' =>
       array(
@@ -28,6 +35,6 @@ function usajobs_theme($existing, $type, $theme, $path) {
           'jobs' => NULL,
         ),
         'template' => 'block--usajobs-block',
-      )
+      ),
   );
 }

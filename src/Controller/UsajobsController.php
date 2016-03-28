@@ -8,25 +8,26 @@
 namespace Drupal\usajobs\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use GuzzleHttp\Exception\RequestException;
 use Drupal\Core\Cache\CacheableJsonResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+/**
+ * Controller routines for usajobs routes.
+ */
 class UsajobsController extends ControllerBase {
 
   /**
    * List jobs from the USAjobs Search API.
    *
-   * @return \Symfony\Component\HttpFoundation\JsonResponse
+   * @return object
+   *   Return a response object.
    */
-
-  public function getJobs()
-  {
-    //TODO: move this to a custom REST resource??
+  public function getJobs() {
+    // @todo: move this to a custom REST resource??
     try {
 
-      //get module settings
+      // Get module settings.
       $config = \Drupal::config('usajobs.settings');
       $headers = array(
         'Host' => $config->get('host'),
@@ -35,40 +36,41 @@ class UsajobsController extends ControllerBase {
         'Accept' => 'application/json',
       );
 
-      //build request url with querystring parameters provided by module configuration
+      // Build request url with querystring parameters provided by module
+      // configuration.
       $params = \Drupal::config('usajobs.parameters')->getRawData();
-      //remove any settings which aren't used as Search API parameters
+      // Remove any settings which aren't used as Search API parameters.
       unset($params['_core']);
-      foreach($params as $key => $value){
-        //get params with multiple values and convert to a (semi-colon delimited) string
-        if( is_array($params[$key]) ){
+      foreach ($params as $key => $value) {
+        // Get params with multiple values and convert to a csv string.
+        if (is_array($params[$key])) {
           $combined = '';
-          foreach($params[$key] as $k => $v){
+          foreach ($params[$key] as $k => $v) {
             $combined .= $v . ';';
           }
-          //set the new value
+          // Set the new value.
           $params[$key] = rtrim($combined, ';');
         }
-        //remove empty params
-        if(empty($value)){
+        // Remove empty params.
+        if (empty($value)) {
           unset($params[$key]);
         }
       }
 
-      //request USAjobs Search API
+      // Request USAjobs Search API.
       $client = \Drupal::httpClient();
       $query = http_build_query($params);
       $request_url = $config->get('endpoint_url') . '?' . $query;
-      $response = $client->get( $request_url, array('headers' => $headers) );
+      $response = $client->get($request_url, array('headers' => $headers));
       return new CacheableJsonResponse([
-        'success' => true,
+        'success' => TRUE,
         'data' => json_decode($response->getBody()),
       ]);
 
     } catch (RequestException $exception) {
       watchdog_exception('usajobs', $exception);
       return new JsonResponse([
-        'success' => false,
+        'success' => FALSE,
         'code'    => $exception->getCode(),
         'message' => $exception->getMessage(),
       ]);
