@@ -2,24 +2,24 @@
 
 /**
  * @file
- * Contains \Drupal\usajobs\Form\ConfigForm.
+ * Contains \Drupal\usajobs\Form\UsajobsSearchApiConfigForm.
  */
 
-namespace Drupal\usajobs\Form;
+namespace Drupal\usajobs_search_api\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Provides a form for administering usajobs settings.
+ * Provides a form for administering usajobs search api settings.
  */
-class ConfigForm extends ConfigFormBase {
+class UsajobsSearchApiConfigForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'usajobs_settings';
+    return 'usajobs_search_api_settings';
   }
 
   /**
@@ -27,8 +27,8 @@ class ConfigForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return array(
-      'usajobs.settings',
-      'usajobs.parameters',
+      'usajobs_search_api.settings',
+      'usajobs_search_api.parameters',
     );
   }
 
@@ -37,12 +37,12 @@ class ConfigForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $config = $this->config('usajobs.settings');
-    $params = $this->config('usajobs.parameters');
+    $config = $this->config('usajobs_search_api.settings');
+    $params = $this->config('usajobs_search_api.parameters');
 
     $form['api_settings'] = array(
       '#type' => 'details',
-      '#title' => $this->t('USAjobs Search API Settings'),
+      '#title' => $this->t('Search API Settings'),
       '#open' => TRUE,
     );
     $form['api_settings']['user_agent'] = [
@@ -73,12 +73,12 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $config->get('host'),
     ];
 
-    $form['block_settings'] = array(
+    $form['filter_settings'] = array(
       '#type' => 'details',
-      '#title' => 'USAjobs Block Settings',
+      '#title' => 'Search API Filters',
       '#description' => $this->t('Configure all parameters which will determine the results returned from the USAjobs Search API. <a href="https://developer.usajobs.gov/Search-API/API-Query-Parameters" target="_blank">Read the USAjobs documentation</a> for complete information about these parameters.'),
     );
-    $form['block_settings']['Organization'] = [
+    $form['filter_settings']['Organization'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Organizations'),
       '#size' => 60,
@@ -87,7 +87,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('Organization'),
       '#description' => $this->t('Find jobs for the specified agency using the Agency Subelement Code. <a href="https://data.usajobs.gov/api/codelist/agencysubelements" target="_blank">View all agency and subagency codes</a>. Multiple values are semicolon delimited.'),
     ];
-    $form['block_settings']['Keyword'] = [
+    $form['filter_settings']['Keyword'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Keyword'),
       '#size' => 60,
@@ -96,7 +96,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('Keyword'),
       '#description' => $this->t('Find jobs based on a keyword'),
     ];
-    $form['block_settings']['KeywordExclusion'] = [
+    $form['filter_settings']['KeywordExclusion'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Keyword Exclusion'),
       '#size' => 60,
@@ -105,7 +105,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('KeywordExclusion'),
       '#description' => $this->t('Find jobs NOT matching this value.'),
     ];
-    $form['block_settings']['KeywordFilter'] = [
+    $form['filter_settings']['KeywordFilter'] = [
       '#type' => 'select',
       '#title' => $this->t('Keyword Filter'),
       '#options' => [
@@ -119,7 +119,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('KeywordFilter'),
       '#description' => $this->t('Used with the Keyword, defines the type of phrase search to issue.'),
     ];
-    $form['block_settings']['RemunerationMinimumAmount'] = [
+    $form['filter_settings']['RemunerationMinimumAmount'] = [
       '#type' => 'number',
       '#title' => $this->t('Minimum Salary'),
       '#size' => 30,
@@ -128,7 +128,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('RemunerationMinimumAmount'),
       '#description' => $this->t('Find jobs with the minimum salary specified.'),
     ];
-    $form['block_settings']['RemunerationMaximumAmount'] = [
+    $form['filter_settings']['RemunerationMaximumAmount'] = [
       '#type' => 'number',
       '#title' => $this->t('Maximum Salary'),
       '#size' => 30,
@@ -137,7 +137,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('RemunerationMaximumAmount'),
       '#description' => $this->t('Find jobs with the maximum salary specified.'),
     ];
-    $form['block_settings']['JobGradeCode'] = [
+    $form['filter_settings']['JobGradeCode'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Pay Plan'),
       '#size' => 30,
@@ -146,7 +146,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('JobGradeCode'),
       '#description' => $this->t('Find jobs of a certain pay plan. <em>(i.e. "GS")</em>'),
     ];
-    $form['block_settings']['PayGradeLow'] = [
+    $form['filter_settings']['PayGradeLow'] = [
       '#type' => 'number',
       '#title' => $this->t('Minimum Pay Grade'),
       '#size' => 30,
@@ -157,7 +157,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('PayGradeLow'),
       '#description' => $this->t('Find jobs with the minimum pay grade specified.'),
     ];
-    $form['block_settings']['PayGradeHigh'] = [
+    $form['filter_settings']['PayGradeHigh'] = [
       '#type' => 'number',
       '#title' => $this->t('Maximum Pay Grade'),
       '#size' => 30,
@@ -168,7 +168,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('PayGradeHigh'),
       '#description' => $this->t('Find jobs with the maximum pay grade specified.'),
     ];
-    $form['block_settings']['JobCategoryCode'] = [
+    $form['filter_settings']['JobCategoryCode'] = [
       '#type' => 'number',
       '#title' => $this->t('Job Category (Series) Code'),
       '#size' => 30,
@@ -177,7 +177,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('JobCategoryCode'),
       '#description' => $this->t('Find jobs of a specific type using the category code. <a href="https://data.usajobs.gov/api/codelist/OccupationalSeries" target="_blank">View a list of all category codes</a>.'),
     ];
-    $form['block_settings']['LocationName'] = [
+    $form['filter_settings']['LocationName'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Location Name'),
       '#size' => 60,
@@ -186,7 +186,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('LocationName'),
       '#description' => $this->t('Find jobs match a specific location. <em>(i.e. Washington,DC)</em> Multiple values are semicolon delimited'),
     ];
-    $form['block_settings']['Radius'] = [
+    $form['filter_settings']['Radius'] = [
       '#type' => 'number',
       '#title' => $this->t('Distance from Location'),
       '#size' => 30,
@@ -196,7 +196,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('Radius'),
       '#description' => $this->t('Used with Location Name to find jobs within a specific radius (in miles)'),
     ];
-    $form['block_settings']['PositionOfferingTypeCode'] = [
+    $form['filter_settings']['PositionOfferingTypeCode'] = [
       '#type' => 'select',
       '#title' => $this->t('Work Type'),
       '#multiple' => TRUE,
@@ -211,7 +211,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('PositionOfferingTypeCode'),
       '#description' => $this->t('Find jobs by a specific work type.'),
     ];
-    $form['block_settings']['TravelPercentage'] = [
+    $form['filter_settings']['TravelPercentage'] = [
       '#type' => 'select',
       '#title' => $this->t('Travel Percentage'),
       '#options' => [
@@ -227,7 +227,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('TravelPercentage'),
       '#description' => $this->t('Find jobs with a specific travel percent requirement.'),
     ];
-    $form['block_settings']['PositionScheduleTypeCode'] = [
+    $form['filter_settings']['PositionScheduleTypeCode'] = [
       '#type' => 'select',
       '#title' => $this->t('Schedule Type'),
       '#multiple' => TRUE,
@@ -245,14 +245,14 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('PositionScheduleTypeCode'),
       '#description' => $this->t('Find jobs with a specific work schedule.'),
     ];
-    $form['block_settings']['RelocationIndicator'] = [
+    $form['filter_settings']['RelocationIndicator'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Relocation Authorized'),
       '#required' => FALSE,
       '#default_value' => $params->get('RelocationIndicator'),
       '#description' => $this->t('Only include jobs with relocation authorization.'),
     ];
-    $form['block_settings']['SecurityClearanceRequired'] = [
+    $form['filter_settings']['SecurityClearanceRequired'] = [
       '#type' => 'select',
       '#title' => $this->t('Security Clearance Required'),
       '#multiple' => TRUE,
@@ -272,14 +272,14 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('SecurityClearanceRequired'),
       '#description' => $this->t('Find jobs with a specific security clearance.'),
     ];
-    $form['block_settings']['SupervisoryStatus'] = [
+    $form['filter_settings']['SupervisoryStatus'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Supervisory Status'),
       '#required' => FALSE,
       '#default_value' => $params->get('SupervisoryStatus'),
       '#description' => $this->t('Only include supervisory positions.'),
     ];
-    $form['block_settings']['DatePosted'] = [
+    $form['filter_settings']['DatePosted'] = [
       '#type' => 'select',
       '#title' => $this->t('Posted Since'),
       '#options' => [
@@ -296,7 +296,7 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('DatePosted'),
       '#description' => $this->t('Find jobs since a certain amount of time.'),
     ];
-    $form['block_settings']['WhoMayApply'] = [
+    $form['filter_settings']['WhoMayApply'] = [
       '#type' => 'select',
       '#title' => $this->t('Who may apply'),
       '#options' => [
@@ -308,28 +308,28 @@ class ConfigForm extends ConfigFormBase {
       '#default_value' => $params->get('WhoMayApply'),
       '#description' => $this->t('Only include jobs with a specific application requirement.'),
     ];
-    $form['block_settings']['SES'] = [
+    $form['filter_settings']['SES'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Senior Executive Service'),
       '#required' => FALSE,
       '#default_value' => $params->get('SES'),
       '#description' => $this->t('Only include Senior Executive Service positions.'),
     ];
-    $form['block_settings']['Student'] = [
+    $form['filter_settings']['Student'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Student'),
       '#required' => FALSE,
       '#default_value' => $params->get('Student'),
       '#description' => $this->t('Only include Student positions.'),
     ];
-    $form['block_settings']['Internship'] = [
+    $form['filter_settings']['Internship'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Internship'),
       '#required' => FALSE,
       '#default_value' => $params->get('Internship'),
       '#description' => $this->t('Only include Intern positions.'),
     ];
-    $form['block_settings']['RecentGrad'] = [
+    $form['filter_settings']['RecentGrad'] = [
       '#type' => 'checkbox',
       '#title' => $this->t('Recent Graduate'),
       '#required' => FALSE,
@@ -345,14 +345,13 @@ class ConfigForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
-    // @todo: loop through config objects to save?
-    $config = $this->config('usajobs.settings')
+    $config = $this->config('usajobs_search_api.settings')
       ->set('user_agent', $form_state->getValue('user_agent'))
       ->set('api_key', $form_state->getValue('api_key'))
       ->set('endpoint', $form_state->getValue('endpoint'))
       ->set('endpoint', $form_state->getValue('host'))
       ->save();
-    $params = $this->config('usajobs.parameters')
+    $params = $this->config('usajobs_search_api.parameters')
       ->set('Organization', $form_state->getValue('Organization'))
       ->set('Keyword', $form_state->getValue('Keyword'))
       ->set('KeywordExclusion', $form_state->getValue('KeywordExclusion'))

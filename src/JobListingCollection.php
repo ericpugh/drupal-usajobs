@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * Contains \Drupal\usajobs\JobListingCollection.
+ * Contains \Drupal\usajobs_search_api\JobListingCollection.
  */
 
-namespace Drupal\usajobs;
+namespace Drupal\usajobs_search_api;
 
 use Drupal\Core\Url;
-use Drupal\usajobs\JobListing;
+use Drupal\usajobs_search_api\JobListing;
 
 /**
  * Defines a Collection of Job Listings.
@@ -20,7 +20,7 @@ class JobListingCollection {
    * Get jobs from usajobs endpoint.
    */
   static public function getJobListings() {
-    $url = Url::fromRoute('usajobs.listings', $route_parameters = array(), $options = array('absolute' => TRUE))->toString();
+    $url = Url::fromRoute('usajobs_search_api.listings', $route_parameters = array(), $options = array('absolute' => TRUE))->toString();
     $contents = \Drupal::httpClient()->get($url)->getBody()->getContents();
     $response = json_decode($contents);
     if (is_object($response)  && $response->success == TRUE) {

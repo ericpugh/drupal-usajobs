@@ -10,13 +10,13 @@ use Drupal\Core\Routing\RouteMatchInterface;
 /**
  * Implements hook_help().
  */
-function usajobs_help($route_name, RouteMatchInterface $route_match) {
+function usajobs_search_api_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
 
-    case 'usajobs.help':
+    case 'usajobs_search_api.help':
       $output = '';
       $output .= '<h3>' . t('About') . '</h3>';
-      $output .= '<p>' . t('This is the help docs for USAjobs, see <a href="!usajobs-module">the online documentation</a></p>');
+      $output .= '<p>' . t('This is the help docs for USAjobs Search API, see <a href="!usajobs-search-api-module">the online documentation</a></p>');
       return $output;
 
     break;
@@ -26,15 +26,15 @@ function usajobs_help($route_name, RouteMatchInterface $route_match) {
 /**
  * Implements hook_theme().
  */
-function usajobs_theme($existing, $type, $theme, $path) {
+function usajobs_search_api_theme($existing, $type, $theme, $path) {
   // Add jobs variable and assign twig template for the block template.
   return array(
-    'usajobs_block' =>
+    'usajobs_search_api_block' =>
       array(
         'variables' => array(
           'jobs' => NULL,
         ),
-        'template' => 'block--usajobs-block',
+        'template' => 'block--usajobs-search-api-block',
       ),
   );
 }

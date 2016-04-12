@@ -1,0 +1,8 @@
+name: USAjobs Search API
+description: 'Provides a Block and REST Resource of filtered USAjobs.gov job listings for a state or federal agencies.'
+core: 8.x
+type: module
+configure: usajobs_search_api.settings
+dependencies:
+  - block
+  - rest

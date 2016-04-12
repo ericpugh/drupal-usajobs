@@ -22,17 +22,17 @@ https://developer.usajobs.gov/Search-API/Instantiating-the-API
 Installation
 -----------
 
-1. Place the usajobs directory in your modules directory.
-2. Enable the usajobs module at admin/modules.
-3. Configure it at admin/config/usajobs
+1. Place the usajobs-search-api directory in your modules directory.
+2. Enable the usajobs_search_api module at admin/modules.
+3. Configure it at admin/config/usajobs_search_api
 
 
 Setup Tips
 ------------
 
-1. Place the USAjobs in a block region (admin/structure/block) to display
+1. Place the USAjobs Block in a block region (admin/structure/block) to display
 on your site.
-2. override template/block--usajobs-block.html.twig in your theme to customize
+2. override template/block--usajobs-search-api-block.html.twig in your theme to customize
  block output
 
 
@@ -43,7 +43,7 @@ and add the job listings object to the $variables
 
 Example template in mytheme/templates/block--usajobs-block.html
 
-{% extends "@usajobs/block--usajobs-block.html.twig" %}
+{% extends "@usajobs/block--usajobs-search-api-block.html.twig" %}
 {% block content %}
     <ol>
     {% for job in jobs %}
@@ -56,9 +56,9 @@ Example template in mytheme/templates/block--usajobs-block.html
 Example hook_preprocess_block() in mytheme.theme
 
 function mytheme_preprocess_block(&$variables) {
-  if ($variables['plugin_id'] == 'usajobs_block'){
-    if( Drupal::moduleHandler()->moduleExists('usajobs') ){
-      $variables['jobs'] = Drupal\usajobs\JobListingCollection::getJobListings();
+  if ($variables['plugin_id'] == 'usajobs_search_api_block'){
+    if( Drupal::moduleHandler()->moduleExists('usajobs_search_api') ){
+      $variables['jobs'] = Drupal\usajobs_search_api\JobListingCollection::getJobListings();
     }
   }
 }

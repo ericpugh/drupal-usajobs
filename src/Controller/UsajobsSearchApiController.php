@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\usajobs\Controller\UsajobsController.
+ * Contains \Drupal\usajobs_search_api\Controller\UsajobsSearchApiController.
  */
 
-namespace Drupal\usajobs\Controller;
+namespace Drupal\usajobs_search_api\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use GuzzleHttp\Exception\RequestException;
@@ -15,7 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 /**
  * Controller routines for usajobs routes.
  */
-class UsajobsController extends ControllerBase {
+class UsajobsSearchApiController extends ControllerBase {
 
   /**
    * List jobs from the USAjobs Search API.
@@ -28,7 +28,7 @@ class UsajobsController extends ControllerBase {
     try {
 
       // Get module settings.
-      $config = \Drupal::config('usajobs.settings');
+      $config = \Drupal::config('usajobs_search_api.settings');
       $headers = array(
         'Host' => $config->get('host'),
         'User-Agent' => $config->get('user_agent'),
@@ -38,7 +38,7 @@ class UsajobsController extends ControllerBase {
 
       // Build request url with querystring parameters provided by module
       // configuration.
-      $params = \Drupal::config('usajobs.parameters')->getRawData();
+      $params = \Drupal::config('usajobs_search_api.parameters')->getRawData();
       // Remove any settings which aren't used as Search API parameters.
       unset($params['_core']);
       foreach ($params as $key => $value) {
