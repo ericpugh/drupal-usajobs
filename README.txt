@@ -23,8 +23,8 @@ Installation
 -----------
 
 1. Place the usajobs-search-api directory in your modules directory.
-2. Enable the usajobs_search_api module at admin/modules.
-3. Configure it at admin/config/usajobs_search_api
+2. Enable the usajobs_integration module at admin/modules.
+3. Configure it at admin/config/usajobs_integration
 
 
 Setup Tips
@@ -56,9 +56,9 @@ Example template in mytheme/templates/block--usajobs-block.html
 Example hook_preprocess_block() in mytheme.theme
 
 function mytheme_preprocess_block(&$variables) {
-  if ($variables['plugin_id'] == 'usajobs_search_api_block'){
-    if( Drupal::moduleHandler()->moduleExists('usajobs_search_api') ){
-      $variables['jobs'] = Drupal\usajobs_search_api\JobListingCollection::getJobListings();
+  if ($variables['plugin_id'] == 'usajobs_integration_block'){
+    if( Drupal::moduleHandler()->moduleExists('usajobs_integration') ){
+      $variables['jobs'] = Drupal\usajobs_integration\JobListingCollection::getJobListings();
     }
   }
 }

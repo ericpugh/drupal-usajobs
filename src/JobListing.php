@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\usajobs_search_api\JobListing.
+ * Contains \Drupal\usajobs_integration\JobListing.
  */
 
-namespace Drupal\usajobs_search_api;
+namespace Drupal\usajobs_integration;
 
 use Drupal\Component\Utility\Unicode;
 

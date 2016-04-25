@@ -1,6 +1,6 @@
 {
-    "name": "drupal/usajobs_search_api",
-    "description": "USAjobs Search API module",
+    "name": "drupal/usajobs_integration",
+    "description": "USAjobs Integration module",
     "type": "drupal-module",
     "license": "GPL-2.0+"
 }

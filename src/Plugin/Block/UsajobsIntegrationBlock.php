@@ -2,25 +2,25 @@
 
 /**
  * @file
- * Contains \Drupal\usajobs_search_api\Plugin\Block\UsajobsSearchApiBlock.
+ * Contains \Drupal\usajobs_integration\Plugin\Block\UsajobsIntegrationBlock.
  */
 
-namespace Drupal\usajobs_search_api\Plugin\Block;
+namespace Drupal\usajobs_integration\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Block\BlockBase;
-use Drupal\usajobs_search_api\JobListingCollection;
+use Drupal\usajobs_integration\JobListingCollection;
 
 /**
  * Provides a 'USAjobs' block.
  *
  * @Block(
- *   id = "usajobs_search_api_block",
+ *   id = "usajobs_integration_block",
  *   admin_label = @Translation("USAjobs Job Listings"),
  * )
  */
-class UsajobsSearchApiBlock extends BlockBase {
+class UsajobsIntegrationBlock extends BlockBase {
 
   /**
    * {@inheritdoc}
@@ -35,7 +35,7 @@ class UsajobsSearchApiBlock extends BlockBase {
   public function build() {
 
     return array(
-      '#theme' => 'usajobs_search_api_block',
+      '#theme' => 'usajobs_integration_block',
       '#jobs' => JobListingCollection::getJobListings(),
     );
 

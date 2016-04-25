@@ -1,6 +1,6 @@
-usajobs_search_api.settings:
+usajobs_integration.settings:
   type: config_object
-  label: 'USAjobs Module Settings'
+  label: 'USAjobs Integration Settings'
   mapping:
     user_agent:
       type: email
@@ -15,9 +15,9 @@ usajobs_search_api.settings:
       type: string
       label: 'Host'
 
-usajobs_search_api.parameters:
+usajobs_integration.parameters:
   type: config_object
-  label: 'API Request Parameters'
+  label: 'USAjobs Search API Request Parameters'
   mapping:
     Organization:
       type: string
@@ -85,18 +85,6 @@ usajobs_search_api.parameters:
     DatePosted:
       type: string
       label: 'Date Posted'
-#    SortField:
-#      type: string
-#      label: 'Sort Field'
-#    SortDirection:
-#      type: string
-#      label: 'Sort Direction'
-#    Page:
-#      type: integer
-#      label: 'Page Number'
-#    ResultsPerPage:
-#      type: integer
-#      label: 'Results Per Page'
     WhoMayApply:
       type: string
       label: 'Who May Apply'

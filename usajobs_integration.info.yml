@@ -1,0 +1,7 @@
+name: USAjobs Integration
+description: 'Integration with USAjobs.gov job listings for a state or federal agencies.'
+core: 8.x
+type: module
+configure: usajobs_integration.settings
+dependencies:
+  - views

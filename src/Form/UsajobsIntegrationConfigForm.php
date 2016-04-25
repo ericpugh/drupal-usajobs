@@ -2,10 +2,10 @@
 
 /**
  * @file
- * Contains \Drupal\usajobs\Form\UsajobsSearchApiConfigForm.
+ * Contains \Drupal\usajobs\Form\UsajobsIntegrationConfigForm.
  */
 
-namespace Drupal\usajobs_search_api\Form;
+namespace Drupal\usajobs_integration\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
 use Drupal\Core\Form\FormStateInterface;
@@ -13,13 +13,13 @@ use Drupal\Core\Form\FormStateInterface;
 /**
  * Provides a form for administering usajobs search api settings.
  */
-class UsajobsSearchApiConfigForm extends ConfigFormBase {
+class UsajobsIntegrationConfigForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
    */
   public function getFormId() {
-    return 'usajobs_search_api_settings';
+    return 'usajobs_integration_settings';
   }
 
   /**
@@ -27,8 +27,8 @@ class UsajobsSearchApiConfigForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return array(
-      'usajobs_search_api.settings',
-      'usajobs_search_api.parameters',
+      'usajobs_integration.settings',
+      'usajobs_integration.parameters',
     );
   }
 
@@ -37,12 +37,12 @@ class UsajobsSearchApiConfigForm extends ConfigFormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
 
-    $config = $this->config('usajobs_search_api.settings');
-    $params = $this->config('usajobs_search_api.parameters');
+    $config = $this->config('usajobs_integration.settings');
+    $params = $this->config('usajobs_integration.parameters');
 
     $form['api_settings'] = array(
       '#type' => 'details',
-      '#title' => $this->t('Search API Settings'),
+      '#title' => $this->t('USAjobs Search API Settings'),
       '#open' => TRUE,
     );
     $form['api_settings']['user_agent'] = [
@@ -75,7 +75,7 @@ class UsajobsSearchApiConfigForm extends ConfigFormBase {
 
     $form['filter_settings'] = array(
       '#type' => 'details',
-      '#title' => 'Search API Filters',
+      '#title' => 'USAjobs Search API Filters',
       '#description' => $this->t('Configure all parameters which will determine the results returned from the USAjobs Search API. <a href="https://developer.usajobs.gov/Search-API/API-Query-Parameters" target="_blank">Read the USAjobs documentation</a> for complete information about these parameters.'),
     );
     $form['filter_settings']['Organization'] = [
@@ -345,13 +345,13 @@ class UsajobsSearchApiConfigForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
-    $config = $this->config('usajobs_search_api.settings')
+    $config = $this->config('usajobs_integration.settings')
       ->set('user_agent', $form_state->getValue('user_agent'))
       ->set('api_key', $form_state->getValue('api_key'))
       ->set('endpoint', $form_state->getValue('endpoint'))
       ->set('endpoint', $form_state->getValue('host'))
       ->save();
-    $params = $this->config('usajobs_search_api.parameters')
+    $params = $this->config('usajobs_integration.parameters')
       ->set('Organization', $form_state->getValue('Organization'))
       ->set('Keyword', $form_state->getValue('Keyword'))
       ->set('KeywordExclusion', $form_state->getValue('KeywordExclusion'))
