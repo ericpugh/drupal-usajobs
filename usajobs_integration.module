@@ -23,8 +23,6 @@ function usajobs_integration_help($route_name, RouteMatchInterface $route_match)
       $output .= ' https://developer.usajobs.gov/Search-API/Instantiating-the-API</p>';
       return $output;
 
-    break;
-
   }
 }
 

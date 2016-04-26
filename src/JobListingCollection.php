@@ -1,8 +1,4 @@
 <?php
-/**
- * @file
- * Contains \Drupal\usajobs_integration\JobListingCollection.
- */
 
 namespace Drupal\usajobs_integration;
 

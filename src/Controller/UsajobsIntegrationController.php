@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\usajobs_integration\Controller\UsajobsIntegrationController.
- */
-
 namespace Drupal\usajobs_integration\Controller;
 
 use Drupal\Core\Controller\ControllerBase;

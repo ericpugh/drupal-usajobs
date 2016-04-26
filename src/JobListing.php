@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\usajobs_integration\JobListing.
- */
-
 namespace Drupal\usajobs_integration;
 
 use Drupal\Component\Utility\Unicode;

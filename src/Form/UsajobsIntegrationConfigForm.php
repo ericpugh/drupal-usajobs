@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\usajobs\Form\UsajobsIntegrationConfigForm.
- */
-
 namespace Drupal\usajobs_integration\Form;
 
 use Drupal\Core\Form\ConfigFormBase;

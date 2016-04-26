@@ -1,10 +1,5 @@
 <?php
 
-/**
- * @file
- * Contains \Drupal\usajobs_integration\Plugin\Block\UsajobsIntegrationBlock.
- */
-
 namespace Drupal\usajobs_integration\Plugin\Block;
 
 use Drupal\Core\Access\AccessResult;

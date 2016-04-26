@@ -30,9 +30,12 @@ Installation
 Setup Tips
 ------------
 
-1. Configure USAjobs API connection and filter settings (admin/config/usajobs_integration)
-3. Place the USAjobs Block in a block region (admin/structure/block) to display on your site. 
-3. override template/block--usajobs-integration-block.html.twig in your theme to customize block output
+1. Configure USAjobs API connection and filter settings 
+(admin/config/usajobs_integration)
+3. Place the USAjobs Block in a block region (admin/structure/block) to
+ display on your site. 
+3. override template/block--usajobs-integration-block.html.twig in your 
+theme to customize block output
 
 
 Overriding the Block Template
