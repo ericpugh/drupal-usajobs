@@ -49,5 +49,3 @@ Example template in mytheme/templates/block--usajobs-integration-block.html
     {% endfor %}
     </ol>
 {% endblock %}
-
-

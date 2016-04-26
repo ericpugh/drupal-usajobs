@@ -50,4 +50,3 @@ Example template in mytheme/templates/block--usajobs-integration-block.html
     </ol>
 {% endblock %}
 ```
-

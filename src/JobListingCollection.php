@@ -20,7 +20,7 @@ class JobListingCollection {
    * Get jobs from usajobs endpoint.
    */
   static public function getJobListings() {
-    $url = Url::fromRoute('usajobs_integration.listings', $route_parameters = array(), $options = array('absolute' => TRUE))->toString();
+    $url = Url::fromRoute('usajobs_integration.listings', array(), array('absolute' => TRUE))->toString();
     $contents = \Drupal::httpClient()->get($url)->getBody()->getContents();
     $response = json_decode($contents);
     if (is_object($response)  && $response->success == TRUE) {

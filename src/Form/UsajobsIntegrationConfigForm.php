@@ -345,13 +345,13 @@ class UsajobsIntegrationConfigForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     parent::submitForm($form, $form_state);
-    $config = $this->config('usajobs_integration.settings')
+    $this->config('usajobs_integration.settings')
       ->set('user_agent', $form_state->getValue('user_agent'))
       ->set('api_key', $form_state->getValue('api_key'))
       ->set('endpoint', $form_state->getValue('endpoint'))
       ->set('endpoint', $form_state->getValue('host'))
       ->save();
-    $params = $this->config('usajobs_integration.parameters')
+    $this->config('usajobs_integration.parameters')
       ->set('Organization', $form_state->getValue('Organization'))
       ->set('Keyword', $form_state->getValue('Keyword'))
       ->set('KeywordExclusion', $form_state->getValue('KeywordExclusion'))

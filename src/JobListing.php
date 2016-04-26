@@ -93,7 +93,7 @@ class JobListing {
         $this->whoMayApply = $data->MatchedObjectDescriptor->UserArea->Details->WhoMayApply->Name;
         if ($this->whoMayApply) {
           // Truncate the WhoMayApply string as summary.
-          $this->whoMayApplySummary = Unicode::truncate($this->whoMayApply, $max_length = 57, TRUE, TRUE);
+          $this->whoMayApplySummary = Unicode::truncate($this->whoMayApply, 57, TRUE, TRUE);
         }
       }
 

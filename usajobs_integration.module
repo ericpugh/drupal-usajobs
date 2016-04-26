@@ -19,10 +19,12 @@ function usajobs_integration_help($route_name, RouteMatchInterface $route_match)
       $output .= '<p>' . t('This module creates a block which displays a job listings from USAjobs.gov');
       $output .= t('The module provides a configuration form which allows a user with permission to set parameters used to query the USAjobs Search API.');
       $output .= t('Results of this query are output in a custom "USAjobs Listings" block and also as JSON at example.com/usajobs_integration/listings.json for sites that wish to manipulate the results using Javascript.') . '</p>';
-      $output .= '<p>' .t('More information about the USAjobs Search API:');
+      $output .= '<p>' . t('More information about the USAjobs Search API:');
       $output .= ' https://developer.usajobs.gov/Search-API/Instantiating-the-API</p>';
       return $output;
+
     break;
+
   }
 }
 

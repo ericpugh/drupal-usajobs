@@ -44,7 +44,7 @@ class UsajobsIntegrationController extends ControllerBase {
         // Get params with multiple values and convert to a csv string.
         if (is_array($params[$key])) {
           $combined = '';
-          foreach ($params[$key] as $k => $v) {
+          foreach ($params[$key] as $v) {
             $combined .= $v . ';';
           }
           // Set the new value.
@@ -66,7 +66,9 @@ class UsajobsIntegrationController extends ControllerBase {
         'data' => json_decode($response->getBody()),
       ]);
 
-    } catch (RequestException $exception) {
+    }
+
+    catch (RequestException $exception) {
       watchdog_exception('usajobs', $exception);
       return new JsonResponse([
         'success' => FALSE,
