@@ -3,5 +3,3 @@ description: 'Integration with USAjobs.gov job listings for a state or federal a
 core: 8.x
 type: module
 configure: usajobs_integration.settings
-dependencies:
-  - views
