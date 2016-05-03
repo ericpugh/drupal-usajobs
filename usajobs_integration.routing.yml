@@ -12,7 +12,7 @@ usajobs_integration.help:
 usajobs_integration.listings:
   path: '/usajobs_integration/listings.json'
   defaults:
-    _controller: '\Drupal\usajobs_integration\Controller\UsajobsIntegrationController::getJobs'
+    _controller: '\Drupal\usajobs_integration\Controller\UsajobsIntegrationController::listings'
     methods:  [GET]
     _title: 'Job Listings'
   requirements:
