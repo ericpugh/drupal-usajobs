@@ -10,13 +10,13 @@ Contents of this file
 
 Overview
 --------
-This module creates a block which displays a job listings from USAjobs.gov
+This module creates a block which displays a job listings from USAJobs.gov
 The module provides a configuration form which allows a user with permission
-to set parameters used to query the USAjobs Search API. Results of this query
-are output in a custom "USAjobs Listings" block, and also as JSON
+to set parameters used to query the USAJobs Search API. Results of this query
+are output in a custom "USAJobs Listings" block, and also as JSON
 at example.com/usajobs_integration/listings.json
 for sites that wish to manipulate the results using Javascript.
-More information about the USAjobs Search API:
+More information about the USAJobs Search API:
 https://developer.usajobs.gov/Search-API/Instantiating-the-API
 
 
@@ -30,9 +30,9 @@ Installation
 Setup Tips
 ------------
 
-1. Configure USAjobs API connection and filter settings
+1. Configure USAJobs API connection and filter settings
 (admin/config/usajobs_integration)
-3. Place the USAjobs Block in a block region (admin/structure/block) to display
+3. Place the USAJobs Block in a block region (admin/structure/block) to display
 on your site.
 3. override template/block--usajobs-integration-block.html.twig in your theme
 to customize block output
