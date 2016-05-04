@@ -10,11 +10,11 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Provides a 'USAjobs' block.
+ * Provides a 'USAJobs' block.
  *
  * @Block(
  *   id = "usajobs_integration_block",
- *   admin_label = @Translation("USAjobs Job Listings"),
+ *   admin_label = @Translation("USAJobs Job Listings"),
  * )
  */
 class UsajobsIntegrationBlock extends BlockBase implements ContainerFactoryPluginInterface {

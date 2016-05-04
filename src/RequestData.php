@@ -2,17 +2,16 @@
 
 namespace Drupal\usajobs_integration;
 
+use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use GuzzleHttp\Exception\RequestException;
-use Drupal\Core\Cache\CacheableJsonResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
  * USAJobs Integration RequestData service.
  */
 class RequestData {
-
-  public $listings = array();
 
   /**
    * The response retrieved from USAJobs API.
@@ -29,10 +28,36 @@ class RequestData {
   protected $configFactory;
 
   /**
+   * Logger Factory Service Object.
+   *
+   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
+   */
+  protected $loggerFactory;
+
+  /**
+   * Cache Factory Service Object.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cache;
+
+  /**
+   * Array of job listings.
+   */
+  public $listings = array();
+
+  /**
+   * Constant Cache Id.
+   */
+  const CACHE_ID = 'usajobs_integration:response';
+
+  /**
    * Constructs a new RequestData instance.
    */
-  public function __construct(ConfigFactoryInterface $config_factory) {
+  public function __construct(ConfigFactoryInterface $config_factory, LoggerChannelFactoryInterface $logger_factory, CacheBackendInterface $cache_backend) {
     $this->configFactory = $config_factory;
+    $this->loggerFactory = $logger_factory;
+    $this->cache = $cache_backend;
     $this->response = $this->getData();
   }
 
@@ -76,37 +101,47 @@ class RequestData {
    *   Return a response object.
    */
   private function getData() {
-    try {
-
-      // Get module settings.
-      $config = $this->configFactory->get('usajobs_integration.settings');
-      $headers = array(
-        'Host' => $config->get('host'),
-        'User-Agent' => $config->get('user_agent'),
-        'Authorization-Key' => $config->get('api_key'),
-        'Accept' => 'application/json',
-      );
-
-      // Request USAJobs Search API.
-      $client = \Drupal::httpClient();
-      $request_url = $this->getRequestUrl();
-      $response = $client->get($request_url, array('headers' => $headers));
-      $result = new CacheableJsonResponse([
-        'success' => TRUE,
-        'data' => json_decode($response->getBody()),
-      ]);
+    if ($cache = $this->cache->get($this::CACHE_ID)) {
+      // Retrieve data from cache.
+      return $cache->data;
     }
+    else {
+      // Retrieve data from USAJobs Search API.
+      try {
+        // Get module settings.
+        $config = $this->configFactory->get('usajobs_integration.settings');
+        $headers = array(
+          'Host' => $config->get('host'),
+          'User-Agent' => $config->get('user_agent'),
+          'Authorization-Key' => $config->get('api_key'),
+          'Accept' => 'application/json',
+        );
 
-    catch (RequestException $exception) {
-      watchdog_exception('usajobs', $exception);
-      $result = new JsonResponse([
-        'success' => FALSE,
-        'code'    => $exception->getCode(),
-        'message' => $exception->getMessage(),
-      ]);
+        // Request USAJobs Search API.
+        $client = \Drupal::httpClient();
+        $request_url = $this->getRequestUrl();
+        $response = $client->get($request_url, array('headers' => $headers));
+        $result = new JsonResponse([
+          'success' => TRUE,
+          'data' => json_decode($response->getBody()),
+        ]);
+        // Set the cache expiration.
+        $expireTime = new \DateTime('+2 hours');
+        $cache_expire = $expireTime->getTimestamp();
+        $this->cache->set($this::CACHE_ID, $result, $cache_expire);
+      }
+
+      catch (RequestException $exception) {
+        $this->loggerFactory->get('usajobs_integration')->error($exception);
+        $result = new JsonResponse([
+          'success' => FALSE,
+          'code'    => $exception->getCode(),
+          'message' => $exception->getMessage(),
+        ]);
+      }
+
+      return $result;
     }
-
-    return $result;
 
   }
 
