@@ -5,10 +5,6 @@ usajobs_integration.settings:
     _title: 'USAjobs Integration'
   requirements:
     _permission: 'administer_usajobs_integration'
-usajobs_integration.help:
-  path: 'admin/help/usajobs_integration'
-  requirements:
-    _permission: 'administer_usajobs_integration'
 usajobs_integration.listings:
   path: '/usajobs_integration/listings.json'
   defaults:
