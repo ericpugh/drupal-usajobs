@@ -17,13 +17,13 @@ are output in a custom "USAJobs Listings" block, and also as JSON
 at example.com/usajobs_integration/listings.json
 for sites that wish to manipulate the results using Javascript.
 More information about the USAJobs Search API:
-https://developer.usajobs.gov/Search-API/Instantiating-the-API
+https://developer.usajobs.gov/API-Reference
 
 
 Installation
 -----------
 
-1. Place the drupal-usajobs-integration directory in your modules directory.
+1. Place the usajobs_integration module in your modules directory.
 2. Enable the usajobs_integration module at admin/modules.
 
 
