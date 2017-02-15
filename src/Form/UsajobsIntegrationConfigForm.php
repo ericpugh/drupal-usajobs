@@ -295,8 +295,8 @@ class UsajobsIntegrationConfigForm extends ConfigFormBase {
       '#type' => 'select',
       '#title' => $this->t('Who may apply'),
       '#options' => [
-        'all' => $this->t('All'),
         'public' => $this->t('Public'),
+        'all' => $this->t('All'),
         'status' => $this->t('Status'),
       ],
       '#required' => FALSE,

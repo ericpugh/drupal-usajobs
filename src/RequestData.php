@@ -44,7 +44,7 @@ class RequestData {
   /**
    * Array of job listings.
    */
-  public $listings = array();
+  public $listings = [];
 
   /**
    * Constant Cache Id.
@@ -151,7 +151,7 @@ class RequestData {
   public function getJobListings() {
     if (is_object($this->response)  && $this->response->isOk()) {
       $data = json_decode($this->response->getContent());
-      if ($data->data->SearchResult->SearchResultCount > 0) {
+      if (property_exists($data, 'data') && $data->data->SearchResult->SearchResultCount > 0) {
         $results = $data->data->SearchResult->SearchResultItems;
         foreach ($results as $result) {
           array_push($this->listings, new JobListing($result));
