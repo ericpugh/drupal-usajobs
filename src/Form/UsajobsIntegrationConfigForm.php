@@ -301,7 +301,7 @@ class UsajobsIntegrationConfigForm extends ConfigFormBase {
       ],
       '#required' => FALSE,
       '#default_value' => $params->get('WhoMayApply'),
-      '#description' => $this->t('Only include jobs with a specific application requirement.'),
+      '#description' => $this->t('Only include jobs with a specific application requirement. Note: <a href="https://developer.usajobs.gov/Guides/Rate-Limiting" target="blank">Rate limits</a> may apply.'),
     ];
     $form['filter_settings']['SES'] = [
       '#type' => 'checkbox',
