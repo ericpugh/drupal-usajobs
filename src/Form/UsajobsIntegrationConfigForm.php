@@ -48,7 +48,7 @@ class UsajobsIntegrationConfigForm extends ConfigFormBase {
       '#maxlength' => 128,
       '#required' => TRUE,
       '#default_value' => $config->get('user_agent'),
-      '#description' => $this->t('Please enter the email address associated with an Authorization Key. See the <a href="https://developer.usajobs.gov/Search-API/Instantiating-the-API" target="_blank">USAjobs documentation</a> for more information.'),
+      '#description' => $this->t('Please enter the email address associated with an Authorization Key. See the <a href="https://developer.usajobs.gov/API-Reference" target="_blank">USAjobs documentation</a> for more information.'),
     ];
     $form['api_settings']['api_key'] = [
       '#type' => 'textfield',
@@ -71,7 +71,7 @@ class UsajobsIntegrationConfigForm extends ConfigFormBase {
     $form['filter_settings'] = array(
       '#type' => 'details',
       '#title' => 'USAjobs Search API Filters',
-      '#description' => $this->t('Configure all parameters which will determine the results returned from the USAjobs Search API. <a href="https://developer.usajobs.gov/Search-API/API-Query-Parameters" target="_blank">Read the USAjobs documentation</a> for complete information about these parameters.'),
+      '#description' => $this->t('Configure all parameters which will determine the results returned from the USAjobs Search API. <a href="https://developer.usajobs.gov/API-Reference/GET-JobSearch-Search" target="_blank">Read the USAjobs documentation</a> for complete information about these parameters.'),
     );
     $form['filter_settings']['Organization'] = [
       '#type' => 'textfield',
@@ -295,8 +295,8 @@ class UsajobsIntegrationConfigForm extends ConfigFormBase {
       '#type' => 'select',
       '#title' => $this->t('Who may apply'),
       '#options' => [
-        'all' => $this->t('All'),
         'public' => $this->t('Public'),
+        'all' => $this->t('All'),
         'status' => $this->t('Status'),
       ],
       '#required' => FALSE,
